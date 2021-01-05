@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="mRoot" type="id"></item>
+    <item name="mLeft" type="id"></item>
+    <item name="mRight" type="id"></item>
+    <item name="mBottom" type="id"></item>
+</resources>
