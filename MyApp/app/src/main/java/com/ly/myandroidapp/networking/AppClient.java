@@ -8,11 +8,15 @@ import com.google.gson.GsonBuilder;
 import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import  okhttp3.logging.HttpLoggingInterceptor.Logger;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class AppClient {
     private static final int DEFAULT_TIME_OUT = 15;
@@ -57,5 +61,9 @@ public class AppClient {
 
     public ApiService getApiServer() {
         return createService(ApiService.class);
+    }
+
+    public void t (){
+
     }
 }
