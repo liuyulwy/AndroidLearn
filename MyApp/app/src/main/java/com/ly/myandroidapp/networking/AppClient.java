@@ -1,22 +1,14 @@
 package com.ly.myandroidapp.networking;
 
 import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import  okhttp3.logging.HttpLoggingInterceptor.Logger;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class AppClient {
     private static final int DEFAULT_TIME_OUT = 15;
@@ -30,7 +22,7 @@ public class AppClient {
             public void log(@NotNull String s) {
                 Log.d("AppClient", s);
             }
-        }).setLevel(HttpLoggingInterceptor.Level.BASIC);
+        }).setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
@@ -63,7 +55,7 @@ public class AppClient {
         return createService(ApiService.class);
     }
 
-    public void t (){
-
+    public Request getRequest() {
+        return createService(Request.class);
     }
 }
