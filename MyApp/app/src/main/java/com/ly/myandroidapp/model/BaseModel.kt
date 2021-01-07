@@ -1,5 +1,8 @@
 package com.ly.myandroidapp.model
 
-data class User(val name:String, val age:Int) {
+import androidx.databinding.ObservableField
 
+class User() {
+    var name = ObservableField<String>()
+    var age = ObservableField<Int>()
 }
