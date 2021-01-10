@@ -1,11 +1,18 @@
 package com.ly.myandroidapp.model
 
+import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayMap
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.ly.myandroidapp.BR
 
+
+class MyViewModel: ViewModel() {
+    val name = MutableLiveData<String>()
+}
 
 class User() {
     var name = ObservableField<String>().apply { this.set("hello world") }
@@ -16,13 +23,15 @@ class User() {
     }
     var p = Parent()
 }
-class Children() {}
 class Parent : BaseObservable() {
     @get:Bindable
-    var firstName: String = ""
-        set(firstName) {
-            field = firstName
-            notifyPropertyChanged(BR.firstName)
+    var firstName: String = "abc"
+        set(value) {
+            Log.d("model:",value)
+            if (value != field){
+                field = value
+                notifyPropertyChanged(BR.firstName)
+            }
         }
 
     @get:Bindable
