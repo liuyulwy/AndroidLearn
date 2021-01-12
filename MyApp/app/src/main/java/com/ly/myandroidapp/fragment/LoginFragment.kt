@@ -31,10 +31,7 @@ class LoginFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        login.setOnClickListener {
-            val nv = findNavController()
-            nv.navigate(R.id.action_loginFragment_to_registerFragment)
-        }
+
     }
 
     override fun onCreateView(
@@ -42,7 +39,24 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        val v = inflater.inflate(R.layout.fragment_login, container, false)
+//        val button = v.findViewById<Button>(R.id.login)
+//        button.setOnClickListener {
+//            val nv = findNavController()
+//            nv.navigate(R.id.action_loginFragment_to_registerFragment)
+//        }
+
+
+        return v
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+            login.setOnClickListener {
+            val nv = findNavController()
+            nv.navigate(R.id.action_loginFragment_to_registerFragment)
+        }
     }
 
     companion object {

@@ -4,11 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.ly.myandroidapp.custom_view.CustomViewActivity
 import com.ly.myandroidapp.databinding.ActivityMainBinding
 import com.ly.myandroidapp.model.Parent
 import com.ly.myandroidapp.model.User
 import kotlinx.android.synthetic.main.activity_main.*
-
+const val LOG = "log"
 class MainActivity : AppCompatActivity() {
 
     var user = User()
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         button3.setOnClickListener {
-            startActivity(Intent(this, MainActivity2::class.java))
+            startActivity(Intent(this, CustomViewActivity::class.java))
         }
 
 
