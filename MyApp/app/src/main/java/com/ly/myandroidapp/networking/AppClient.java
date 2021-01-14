@@ -1,14 +1,17 @@
 package com.ly.myandroidapp.networking;
 
 import android.util.Log;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Logger;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import  okhttp3.logging.HttpLoggingInterceptor.Logger;
 
 public class AppClient {
     private static final int DEFAULT_TIME_OUT = 15;
