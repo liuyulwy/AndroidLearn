@@ -9,4 +9,5 @@ object BindingAdapters{
     @JvmStatic fun bindText(view: TextView, text: String){
         view.text = text
     }
+
 }
