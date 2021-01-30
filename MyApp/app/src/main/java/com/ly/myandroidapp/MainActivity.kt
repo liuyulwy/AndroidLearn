@@ -1,11 +1,15 @@
 package com.ly.myandroidapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter
 import com.donkingliang.groupedadapter.holder.BaseViewHolder
+import com.ly.myandroidapp.button.Buttons
 import com.ly.myandroidapp.model.HeaderModel
 import com.ly.myandroidapp.model.NormalModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,8 +18,7 @@ const val LOG = "log"
 
 class MainActivity : AppCompatActivity() {
 
-    //    val data = mutableListOf<String>("1111", "2222", "3333", "4444")
-    val data = initData()
+    private val data = initData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,27 +26,48 @@ class MainActivity : AppCompatActivity() {
         val ll = LinearLayoutManager(this)
         ll.orientation = LinearLayoutManager.VERTICAL
         rv.layoutManager = ll
-//        var adapter = CustomAdapter(data)
-//        rv.adapter = adapter
-//        rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-//        adapter.onClickListener = View.OnClickListener {
-//            Log.d("tag", "------------")
-//        }
+        var adapter = GroupListAdapter(this, data)
+        rv.adapter = adapter
+        rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        adapter.setOnChildClickListener { adapter, holder, groupPosition, childPosition ->
 
+            when(groupPosition){
+                0 -> {
+                    when(childPosition){
+                        0 -> {
+                            val intent = Intent(this,Buttons::class.java)
+                            startActivity(intent)
+                        }
+                        1 -> {
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
     fun initData(): ArrayList<HeaderModel> {
+        val buttons = listOf("Button1", "Button2")
+        val dialogs = listOf("Dialog1", "Dialog2")
+        val groupData = HashMap<String, List<String>>()
+        groupData.put("Button", buttons)
+        groupData.put("Dialog", dialogs)
+
+
         val lists = ArrayList<HeaderModel>()
-        for (i in 0..3){
+        val entry = groupData.entries
+        for (e in entry) {
             val list = ArrayList<NormalModel>()
-            for (j in 0..10){
-                val normal =  NormalModel()
-                normal.content = "index$j"
+            for (subTitle in e.value) {
+                val normal = NormalModel()
+                normal.content = subTitle
                 list.add(normal)
             }
             val headerModel = HeaderModel()
             headerModel.list = list
+            headerModel.title = e.key
             lists.add(headerModel)
         }
 
@@ -52,46 +76,46 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-class GroupListAdapter: GroupedRecyclerViewAdapter {
+class GroupListAdapter : GroupedRecyclerViewAdapter {
+    var data: ArrayList<HeaderModel>? = null
 
-    constructor(context: Context): super(context){
-
+    constructor(context: Context, data: ArrayList<HeaderModel>) : super(context) {
+        this.data = data
     }
 
     override fun getGroupCount(): Int {
-        TODO("Not yet implemented")
+        return data!!.size
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        TODO("Not yet implemented")
+        return data!![groupPosition].list!!.size
     }
 
     override fun hasHeader(groupPosition: Int): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun hasFooter(groupPosition: Int): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun getHeaderLayout(viewType: Int): Int {
-        TODO("Not yet implemented")
+        return R.layout.header_item
     }
 
     override fun getFooterLayout(viewType: Int): Int {
-        TODO("Not yet implemented")
+        return 0
     }
 
     override fun getChildLayout(viewType: Int): Int {
-        TODO("Not yet implemented")
+        return R.layout.text_row_item
     }
 
     override fun onBindHeaderViewHolder(holder: BaseViewHolder?, groupPosition: Int) {
-        TODO("Not yet implemented")
+        holder?.itemView?.findViewById<TextView>(R.id.group_tv)?.text = data!![groupPosition].title
     }
 
     override fun onBindFooterViewHolder(holder: BaseViewHolder?, groupPosition: Int) {
-        TODO("Not yet implemented")
     }
 
     override fun onBindChildViewHolder(
@@ -99,56 +123,9 @@ class GroupListAdapter: GroupedRecyclerViewAdapter {
         groupPosition: Int,
         childPosition: Int
     ) {
-        TODO("Not yet implemented")
+        holder?.itemView?.findViewById<TextView>(R.id.tv)?.text =
+            data!![groupPosition].list!![childPosition].content
+
     }
 
 }
-
-//class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ViewHolder> {
-//    var data: ArrayList<HeaderModel>? = null
-//    var onClickListener: View.OnClickListener? = null
-//
-//    val headerView = 1
-//    val normalView = 2
-//
-//    constructor(data: ArrayList<HeaderModel>) {
-//        this.data = data
-//    }
-//
-//    inner class ViewHolder : RecyclerView.ViewHolder {
-//        val textView: TextView
-//
-//        constructor(view: View) : super(view) {
-//            textView = view.findViewById(R.id.tv)
-//        }
-//    }
-//
-//
-//    override fun getItemViewType(position: Int): Int {
-//        val headerModel = data?.get(position)
-//        return 1
-//    }
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//
-//        val view = LayoutInflater.from(parent.context)
-//                .inflate(R.layout.text_row_item, parent, false)
-//
-//        return ViewHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.textView.text = data?.get(position) ?: ""
-//        holder.itemView.setOnClickListener(onClickListener)
-//        if (position == 1) {
-//            holder.textView.visibility = View.GONE
-//        }else{
-//            holder.textView.visibility = View.VISIBLE
-//        }
-//
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return data?.size ?: 0
-//    }
-//
-//}

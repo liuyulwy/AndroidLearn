@@ -46,7 +46,7 @@ class Parent : BaseObservable() {
 
 class HeaderModel {
     val isHeader = true
-    val title = ""
+    var title = ""
     var list:List<NormalModel>? = null
 }
 
