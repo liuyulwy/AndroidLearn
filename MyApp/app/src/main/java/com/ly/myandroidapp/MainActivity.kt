@@ -12,6 +12,7 @@ import com.donkingliang.groupedadapter.holder.BaseViewHolder
 import com.ly.myandroidapp.button.Buttons
 import com.ly.myandroidapp.model.HeaderModel
 import com.ly.myandroidapp.model.NormalModel
+import com.ly.myandroidapp.navigation.NavigationActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val LOG = "log"
@@ -31,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         adapter.setOnChildClickListener { adapter, holder, groupPosition, childPosition ->
 
-            when(groupPosition){
-                0 -> {
+            when(data[groupPosition].title){
+                "Button" -> {
                     when(childPosition){
                         0 -> {
                             val intent = Intent(this,Buttons::class.java)
@@ -40,6 +41,19 @@ class MainActivity : AppCompatActivity() {
                         }
                         1 -> {
 
+                        }
+                    }
+                }
+
+                "Dialog" -> {
+
+                }
+                //navigation
+                "Navigation" -> {
+                    when(childPosition){
+                        0 -> {
+                            val intent = Intent(this,NavigationActivity::class.java)
+                            startActivity(intent)
                         }
                     }
                 }
@@ -51,10 +65,11 @@ class MainActivity : AppCompatActivity() {
     fun initData(): ArrayList<HeaderModel> {
         val buttons = listOf("Button1", "Button2")
         val dialogs = listOf("Dialog1", "Dialog2")
+        val navigations = listOf("navigation")
         val groupData = HashMap<String, List<String>>()
         groupData.put("Button", buttons)
         groupData.put("Dialog", dialogs)
-
+        groupData.put("Navigation", navigations)
 
         val lists = ArrayList<HeaderModel>()
         val entry = groupData.entries

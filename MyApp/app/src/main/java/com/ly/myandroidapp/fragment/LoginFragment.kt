@@ -40,20 +40,13 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_login, container, false)
-//        val button = v.findViewById<Button>(R.id.login)
-//        button.setOnClickListener {
-//            val nv = findNavController()
-//            nv.navigate(R.id.action_loginFragment_to_registerFragment)
-//        }
-
-
         return v
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-            login.setOnClickListener {
+        login.setOnClickListener {
             val nv = findNavController()
             nv.navigate(R.id.action_loginFragment_to_registerFragment)
         }

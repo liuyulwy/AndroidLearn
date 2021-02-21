@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:text="系统button"
         android:backgroundTint="@color/gray"
-        android:focusable="true"
         />
 
 <com.google.android.material.button.MaterialButton
@@ -38,6 +37,5 @@
         android:text="dofdi"
         android:background="@color/red"
         />
-
 
 </LinearLayout>

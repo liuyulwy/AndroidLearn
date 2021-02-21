@@ -34,34 +34,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-        try {
-//            test();
-            test1();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void test() throws JSONException {
-        String json = "{'name':'张三','age':18,'sex':true}";
-        JSONObject jsonObject = new JSONObject(json);
-        String name = jsonObject.getString("nam");
-        Log.d("tag", name);
-
-    }
-
-    public void test1() throws JSONException {
-        String json = "{'name':'张三','age':18,'sex':true,'obj': \"{'name':'张三','age':18,'sex':true}\"}";
-        JSONObject jsonObject = new JSONObject(json);
-        JSONObject obj = new JSONObject(jsonObject.getString("obj"));
-        String name = obj.getString("name");
-        Log.d("tag", name);
-        Gson gson = new Gson();
-        HashMap map = gson.fromJson(json, new TypeToken<HashMap<String,String>>(){}.getType());
-
-        HashMap map1 = gson.fromJson(map.get("obj").toString(), new TypeToken<HashMap<String,String>>(){}.getType());
-        Object o =map1.get("n");
-
-
     }
 }
